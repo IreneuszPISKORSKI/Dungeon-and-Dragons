@@ -1,10 +1,34 @@
 import java.util.Scanner;
 
 public class Game {
-
-
+    Menu menu = new Menu();
+    Personnage person = new Personnage();
     private int boardSize = 64;
-    Personnage pos = new Personnage();
+
+    public void startGame(){
+        Scanner scanner = new Scanner(System.in);
+
+        int choice;
+        do {
+            menu.printMenu();
+            choice = scanner.nextInt();
+            switch (choice){
+                case 1 -> menu.CreateCharacter(person);
+                case 2 -> menu.printCharacter(person);
+                case 3 -> {
+                    menu.printCharacter(person);
+                    menu.CreateCharacter(person);
+                }
+                case 4 -> playGame();
+                case 5 -> menu.exitGame();
+                default -> System.out.println("Incorrect choice.");
+            }
+            System.out.println(" ");
+        }while (choice != 5);
+    }
+
+
+    //------------------------
     private int playerPosition;
     public void playGame(){
         Scanner gameOn = new Scanner(System.in);

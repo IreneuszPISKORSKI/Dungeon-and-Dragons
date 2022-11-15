@@ -3,8 +3,6 @@ import java.util.Scanner;
 
 public class Menu {
 
-    private Personnage newCharacter = new Personnage();
-    private Game newGame = new Game();
     public void printMenu(){
         System.out.println("Choose one option:");
         System.out.println("1 - Create new character");
@@ -13,7 +11,7 @@ public class Menu {
         System.out.println("4 - Start game!");
         System.out.println("5 - Exit");
     }
-    public void CreateCharacter(){
+    public void CreateCharacter(Personnage newCharacter){
         Scanner inputInfo = new Scanner(System.in);
         System.out.println("Name your character");
         newCharacter.setNameOfCharacter(inputInfo.nextLine());
@@ -25,31 +23,27 @@ public class Menu {
         System.out.println(newCharacter);
     }
 
-    public void printCharacter(){
+    public void printCharacter(Personnage newCharacter){
         System.out.println(newCharacter);
-    }
-
-    public void playGame(){
-        newGame.playGame();
     }
 
     public void exitGame(){
         System.out.println("ExitGame");
     }
-
-    public Personnage getNewCharacter() {
-        return newCharacter;
-    }
-
-    public void setNewCharacter(Personnage newCharacter) {
-        this.newCharacter = newCharacter;
-    }
-
-    public Game getNewGame() {
-        return newGame;
-    }
-
-    public void setNewGame(Game newGame) {
-        this.newGame = newGame;
-    }
+//
+//    public Personnage getNewCharacter() {
+//        return newCharacter;
+//    }
+//
+//    public void setNewCharacter(Personnage newCharacter) {
+//        this.newCharacter = newCharacter;
+//    }
+//
+//    public Game getNewGame() {
+//        return newGame;
+//    }
+//
+//    public void setNewGame(Game newGame) {
+//        this.newGame = newGame;
+//    }
 }
