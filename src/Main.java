@@ -1,29 +1,34 @@
 import java.util.Scanner;
 
 public class Main {
+    private static Menu newGame;
     public static void main(String[] args) {
         Scanner menu = new Scanner(System.in);
-        Menu newGame = new Menu();
+        newGame = new Menu();
         int choice;
         do {
-            System.out.println("Choose one option:");
-            System.out.println("1 - Start new game");
-            System.out.println("2 - Character description");
-            System.out.println("3 - Edit your character");
-            System.out.println("4 - Exit");
+            newGame.printMenu();
             choice = menu.nextInt();
             switch (choice){
                 case 1 -> newGame.CreateCharacter();
-                case 2 -> newGame.PrintCharacter();
+                case 2 -> newGame.printCharacter();
                 case 3 -> {
-                    newGame.PrintCharacter();
+                    newGame.printCharacter();
                     newGame.CreateCharacter();
                 }
-                case 4 -> System.out.println("end");
-                default -> System.out.println("Choose one of the given possibilities");
+                case 4 -> newGame.playGame();
+                case 5 -> newGame.exitGame();
+                default -> System.out.println("Incorrect choice.");
             }
             System.out.println(" ");
-        }while (choice != 4);
+        }while (choice != 5);
     }
 
+    public static Menu getNewGame() {
+        return newGame;
+    }
+
+    public static void setNewGame(Menu newGame) {
+        Main.newGame = newGame;
+    }
 }
