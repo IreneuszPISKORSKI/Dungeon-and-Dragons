@@ -1,4 +1,4 @@
-public class Personnage {
+public class personnage {
 
     private EquipementDefensif defense = new EquipementDefensif();
     private EquipementOffensif weapon = new EquipementOffensif();
@@ -6,19 +6,17 @@ public class Personnage {
     private int type;
     private int healthPoints;
     private int attackPower;
-    private String weaponToAttack;
-    private String thingToDefend;
     private String typeOfCharacter;
     private int playerPosition;
 
-    Personnage(){
+    personnage(){
         this.nameOfCharacter = "Not yet created";
         this.type = 3;
     }
-    Personnage(String name){
+    personnage(String name){
         this.nameOfCharacter = name;
     }
-    Personnage(String name, int type){
+    personnage(String name, int type){
         this.nameOfCharacter = name;
         this.type = type;
     }
@@ -38,10 +36,10 @@ public class Personnage {
         return "Your character: " +
                 "Name: " + nameOfCharacter +
                 ", type: " + typeOfCharacter +
-                ". Your character has: " + weaponToAttack +
-                " and " + thingToDefend + ", " +
+                ". Your character has: " + weapon +
+                " and " + defense + ", " +
                 healthPoints + " health points and " +
-                attackPower + " attack power. \nYour position: " + playerPosition;
+                attackPower + " base attack power. \nYour position: " + playerPosition;
     }
 
     //getter & setter:
@@ -109,14 +107,13 @@ public class Personnage {
         if (type==1) {
             this.healthPoints = 10;
             this.attackPower = 10;
-//            this.weaponToAttack = weapon.getWeapon();
             this.weapon.setAsSword();
-            this.thingToDefend = defense.getShield();
+            this.defense.setAsShield();
         }else if (type == 2){
             this.healthPoints = 6;
             this.attackPower = 15;
-//            this.weaponToAttack = weapon.getSpell();
-            this.thingToDefend = defense.getPotion();
+            this.weapon.setAsSpell();
+            this.defense.setAsPotion();
         }
     }
 

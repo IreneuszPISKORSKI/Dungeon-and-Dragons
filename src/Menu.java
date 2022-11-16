@@ -11,7 +11,7 @@ public class Menu {
         System.out.println("4 - Start game!");
         System.out.println("5 - Exit");
     }
-    public void CreateCharacter(Personnage newCharacter){
+    public void createCharacter(personnage newCharacter){
         Scanner inputInfo = new Scanner(System.in);
         System.out.println("Name your character");
         newCharacter.setNameOfCharacter(inputInfo.nextLine());
@@ -23,27 +23,12 @@ public class Menu {
         System.out.println(newCharacter);
     }
 
-    public void printCharacter(Personnage newCharacter){
+    public void printCharacter(personnage newCharacter){
         System.out.println(newCharacter);
     }
 
     public void exitGame(){
         System.out.println("ExitGame");
     }
-//
-//    public Personnage getNewCharacter() {
-//        return newCharacter;
-//    }
-//
-//    public void setNewCharacter(Personnage newCharacter) {
-//        this.newCharacter = newCharacter;
-//    }
-//
-//    public Game getNewGame() {
-//        return newGame;
-//    }
-//
-//    public void setNewGame(Game newGame) {
-//        this.newGame = newGame;
-//    }
+
 }

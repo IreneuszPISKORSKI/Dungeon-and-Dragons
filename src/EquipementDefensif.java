@@ -1,20 +1,23 @@
 public class EquipementDefensif {
-    private String shield = "wood shield";
-    private String potion = "health potion";
 
-    public String getShield() {
-        return shield;
+    private String type;
+    private int defence;
+    private String name;
+
+    public void setAsShield() {
+        type = "Shield";
+        defence = 5;
+        name = "Wood shield";
     }
 
-    public void setShield(String shield) {
-        this.shield = shield;
+    public void setAsPotion() {
+        type = "Potion";
+        defence = 2;
+        name = "Health potion";
     }
 
-    public String getPotion() {
-        return potion;
-    }
-
-    public void setPotion(String potion) {
-        this.potion = potion;
+    @Override
+    public String toString() {
+        return name + " (+" + defence + " def)";
     }
 }
