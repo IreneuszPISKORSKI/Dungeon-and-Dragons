@@ -2,9 +2,8 @@ import java.util.Scanner;
 
 public class Game {
     Menu menu = new Menu();
-    personnage person = new personnage();
     private int boardSize = 64;
-//    private int playerPosition = person.getPlayerPosition();
+    Personnage newCharacter;
 
     public void startGame(){
         Scanner scanner = new Scanner(System.in);
@@ -14,11 +13,11 @@ public class Game {
             menu.printMenu();
             choice = scanner.nextInt();
             switch (choice){
-                case 1 -> menu.createCharacter(person);
-                case 2 -> menu.printCharacter(person);
+                case 1 -> createCharacter();
+                case 2 -> menu.printCharacter(newCharacter);
                 case 3 -> {
-                    menu.printCharacter(person);
-                    menu.createCharacter(person);
+                    menu.printCharacter(newCharacter);
+                    createCharacter();
                 }
                 case 4 -> playGame();
                 case 5 -> menu.exitGame();
@@ -28,6 +27,25 @@ public class Game {
         }while (choice != 5);
     }
 
+    private void createCharacter() {
+        Scanner inputInfo = new Scanner(System.in);
+        System.out.println("Name your character");
+        String name = inputInfo.nextLine();
+
+        System.out.println("Choose type of your character");
+        System.out.println("1 - warrior");
+        System.out.println("2 - wizard");
+        int type = inputInfo.nextInt();
+
+        if (type==1){
+            newCharacter = new Warrior(name,type);
+
+        } else if (type==2) {
+            newCharacter = new Wizard(name,type);
+        }
+        System.out.println(newCharacter);
+    }
+
     public void playGame(){
         Scanner gameOn = new Scanner(System.in);
         Scanner gameRestart = new Scanner(System.in);
@@ -35,9 +53,9 @@ public class Game {
         int continueGame;
         int restart;
         do {
-            person.setPlayerPosition(0);
-            System.out.println("Start game at: " + person.getPlayerPosition());
-            while (person.getPlayerPosition() < boardSize) {
+            newCharacter.setPlayerPosition(0);
+            System.out.println("Start game at: " + newCharacter.getPlayerPosition());
+            while (newCharacter.getPlayerPosition() < boardSize) {
                 System.out.println("Play?");
                 System.out.println("1 - yes | 0 - no");
                 continueGame = gameOn.nextInt();
@@ -45,11 +63,11 @@ public class Game {
                     break;
                 }
                 thisThrow = diceThrow();
-                person.setPlayerPosition(person.getPlayerPosition()+thisThrow);
+                newCharacter.setPlayerPosition(newCharacter.getPlayerPosition()+thisThrow);
                 System.out.println("You got: " + thisThrow);
-                System.out.println("You are on case " + person.getPlayerPosition() + "/" + boardSize);
+                System.out.println("You are on case " + newCharacter.getPlayerPosition() + "/" + boardSize);
             }
-            if (person.getPlayerPosition()>=boardSize) {
+            if (newCharacter.getPlayerPosition()>=boardSize) {
                 System.out.println("Congratulations! You've reached the end of the board!");
             }else {System.out.println("Game over");}
 

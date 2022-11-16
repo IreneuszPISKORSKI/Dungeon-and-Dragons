@@ -1,45 +1,35 @@
-public class personnage {
+public abstract class Personnage {
 
-    private EquipementDefensif defense = new EquipementDefensif();
-    private EquipementOffensif weapon = new EquipementOffensif();
-    private String nameOfCharacter;
-    private int type;
-    private int healthPoints;
-    private int attackPower;
-    private String typeOfCharacter;
-    private int playerPosition;
+    protected EquipementDefensif defense;
+    protected EquipementOffensif weapon;
+    protected String nameOfCharacter;
+    protected int type;
+    protected int healthPoints;
+    protected int attackPower;
+    protected String typeOfCharacter;
+    protected int playerPosition;
 
-    personnage(){
+    public Personnage(){
         this.nameOfCharacter = "Not yet created";
         this.type = 3;
     }
-    personnage(String name){
+    public Personnage(String name){
         this.nameOfCharacter = name;
     }
-    personnage(String name, int type){
+    public Personnage(String name, int type){
         this.nameOfCharacter = name;
         this.type = type;
     }
 
     @Override
     public String toString() {
-        if (this.type == 1){
-            this.typeOfCharacter = "Warrior";
-        } else if (this.type == 2) {
-            this.typeOfCharacter = "You are a wizard Harry";
-        }else if (this.type == 3) {
-            this.typeOfCharacter = "Not yet selected";
-        }else {
-            this.typeOfCharacter = "What are you?";
-        }
-
         return "Your character: " +
-                "Name: " + nameOfCharacter +
-                ", type: " + typeOfCharacter +
-                ". Your character has: " + weapon +
-                " and " + defense + ", " +
-                healthPoints + " health points and " +
-                attackPower + " base attack power. \nYour position: " + playerPosition;
+            "Name: " + nameOfCharacter +
+            ", type: " + typeOfCharacter +
+            ". Your character has: " + weapon +
+            " and " + defense + ", " +
+            healthPoints + " health points and " +
+            attackPower + " base attack power. \nYour position: " + playerPosition;
     }
 
     //getter & setter:
@@ -103,18 +93,6 @@ public class personnage {
 
     public void setType(int type) {
         this.type = type;
-        this.playerPosition = 0;
-        if (type==1) {
-            this.healthPoints = 10;
-            this.attackPower = 10;
-            this.weapon.setAsSword();
-            this.defense.setAsShield();
-        }else if (type == 2){
-            this.healthPoints = 6;
-            this.attackPower = 15;
-            this.weapon.setAsSpell();
-            this.defense.setAsPotion();
-        }
     }
 
 }
