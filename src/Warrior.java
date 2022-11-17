@@ -1,11 +1,14 @@
 public class Warrior extends Personnage{
-        Warrior(String name, int type){
-        setType(type);
+    Warrior(String name){
+        /**
+         * determinate statistics of warrior
+         */
+        setType(1);
         setNameOfCharacter(name);
         setHealthPoints(10);
         setAttackPower(10);
         setTypeOfCharacter("Warrior");
-        weapon = new Weapon();
-        defense = new Shield();
+        setWeapon(new Weapon());
+        setDefense(new Shield());
     }
 }

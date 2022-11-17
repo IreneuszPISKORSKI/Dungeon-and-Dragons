@@ -10,6 +10,9 @@ public abstract class Personnage {
     protected int playerPosition;
 
     public Personnage(){
+        /**
+         * creation character "not yet"
+         */
         this.nameOfCharacter = "Not yet created";
         this.type = 3;
     }
@@ -23,6 +26,9 @@ public abstract class Personnage {
 
     @Override
     public String toString() {
+        /**
+         * determinate how to display characters
+         */
         return "Your character: " +
             "Name: " + nameOfCharacter +
             ", type: " + typeOfCharacter +
