@@ -1,18 +1,20 @@
-public abstract class EquipementDefensif {
+package EquipmentOffensif;
+
+public abstract class EquipementOffensif {
     private String type;
-    private int defence;
+    private int attack;
     private String name;
 
     @Override
-    public String toString() {return name + " (+" + defence + " def)";}
+    public String toString() {return name + " (+" + attack + " att)";}
 
     public String getType() {return type;}
 
     public void setType(String type) {this.type = type;}
 
-    public int getDefence() {return defence;}
+    public int getAttack() {return attack;}
 
-    public void setDefence(int defence) {this.defence = defence;}
+    public void setAttack(int attack) {this.attack = attack;}
 
     public String getName() {return name;}
 

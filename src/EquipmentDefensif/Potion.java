@@ -1,9 +1,11 @@
+package EquipmentDefensif;
+
 public class Potion extends EquipementDefensif{
-    Potion(){
+    public Potion(){
         /**
          * determinate potion
          */
-        setType("Potion");
+        setType("EquipmentDefensif.Potion");
         setDefence(2);
         setName("Health potion");
     }

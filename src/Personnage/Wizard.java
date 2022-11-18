@@ -1,5 +1,10 @@
+package Personnage;
+
+import EquipmentDefensif.Potion;
+import EquipmentOffensif.Spell;
+
 public class Wizard extends Personnage{
-    Wizard(String name){
+    public Wizard(String name){
         /**
          * Create wizard
          */

@@ -1,5 +1,9 @@
+package Personnage;
+import EquipmentDefensif.Shield;
+import EquipmentOffensif.Weapon;
+
 public class Warrior extends Personnage{
-    Warrior(String name){
+    public Warrior(String name){
         /**
          * determinate statistics of warrior
          */
@@ -7,7 +11,7 @@ public class Warrior extends Personnage{
         setNameOfCharacter(name);
         setHealthPoints(10);
         setAttackPower(10);
-        setTypeOfCharacter("Warrior");
+        setTypeOfCharacter("Personnage.Warrior");
         setWeapon(new Weapon());
         setDefense(new Shield());
     }

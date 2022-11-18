@@ -1,5 +1,7 @@
+package EquipmentOffensif;
+
 public class Weapon extends EquipementOffensif{
-    Weapon(){
+    public Weapon(){
         /**
          * determinate weapon
          */

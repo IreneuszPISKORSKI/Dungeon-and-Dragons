@@ -1,9 +1,11 @@
+package EquipmentDefensif;
+
 public class Shield extends EquipementDefensif{
-    Shield(){
+    public Shield(){
         /**
          * determinate shield
          */
-        setType("Shield");
+        setType("EquipmentDefensif.Shield");
         setDefence(5);
         setName("Wood shield");
     }

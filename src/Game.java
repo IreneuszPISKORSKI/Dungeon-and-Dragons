@@ -1,18 +1,25 @@
+import Personnage.Personnage;
+import Personnage.Warrior;
+import Personnage.Wizard;
+
 import java.util.Scanner;
 
+/**
+ * Where the magic begins
+ */
 public class Game {
     private Menu menu = new Menu();
     private int boardSize = 64;
     private Personnage newCharacter;
 
+    /**
+     * Start game and display main menu
+     */
     public void startGame() {
         Scanner scanner = new Scanner(System.in);
 
         int choice;
         do {
-            /**
-             * Display main menu
-             */
             menu.printMenu();
             choice = scanner.nextInt();
             switch (choice) {
@@ -30,10 +37,11 @@ public class Game {
         } while (choice != 5);
     }
 
+    /**
+     * create new character
+     */
     private void createCharacter() {
-        /**
-         * create new character
-         */
+
         Scanner inputInfo = new Scanner(System.in);
         System.out.println("Name your character");
         String name = inputInfo.nextLine();
@@ -55,10 +63,10 @@ public class Game {
         System.out.println(newCharacter);
     }
 
+    /**
+     * Start game
+     */
     public void playGame() {
-        /**
-         * Start game
-         */
         Scanner gameOn = new Scanner(System.in);
         Scanner gameRestart = new Scanner(System.in);
         int thisThrow;
@@ -70,9 +78,9 @@ public class Game {
             try {
                 /**
                  * loop turns of the game
-                 *
                  */
                 while (true) {
+                    System.out.println("-----------------------");
                     System.out.println("Play?  1 - yes | 0 - no");
                     continueGame = gameOn.nextInt();
                     if (continueGame == 0) {
@@ -90,14 +98,14 @@ public class Game {
 
             } catch (PersonnageHorsPlateauException e) {
                 System.out.println(e);
-            } finally {
-                /**
-                 * ask for restart or quit game
-                 */
+            }
+            /**
+             * ask for restart or quit game
+             */
+            finally {
                 System.out.println("Do you want to play again?");
                 System.out.println("1 - yes | 0 - no");
                 restart = gameRestart.nextInt();
-                System.out.println("--------------------");
             }
         } while (restart == 1);
     }
@@ -110,11 +118,12 @@ public class Game {
         this.boardSize = boardSize;
     }
 
-
+    /**
+     * take random digit as dice throw
+     * @return give 1-6 digit
+     */
     public int diceThrow() {
-        /**
-         * take random digit 1 to 6 as dice trow
-         */
+
         return (int) (Math.random() * 6 + 1);
     }
 

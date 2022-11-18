@@ -1,5 +1,7 @@
+package EquipmentOffensif;
+
 public class Spell extends EquipementOffensif{
-    Spell(){
+    public Spell(){
         /**
          * determinate spell
          */
