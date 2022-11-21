@@ -1,7 +1,10 @@
+import Board.Board;
 import Personnage.Personnage;
 import Personnage.Warrior;
 import Personnage.Wizard;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -72,6 +75,29 @@ public class Game {
         int thisThrow;
         int continueGame;
         int restart;
+
+        //boxes
+        Board board = new Board();
+        int counter = 0;
+        do {
+            int position = randomOnBoard();
+            board.add(position, "Bonus");
+            board.readAll();
+            board.elementsOnBoard();
+            counter++;
+
+        }while (counter<2);
+
+//        System.out.println("tablica: ");
+//        board.readAll();
+//        board.edit(0,"hshshshshs");
+//        System.out.println("Po edit: ");
+//        board.readAll();
+//        System.out.println("Po delete: ");
+//        board.delete(0);
+//        board.readAll();
+    //boxes
+
         do {
             newCharacter.setPlayerPosition(1);
             System.out.println("Start game at: " + newCharacter.getPlayerPosition());
@@ -123,8 +149,12 @@ public class Game {
      * @return give 1-6 digit
      */
     public int diceThrow() {
-
         return (int) (Math.random() * 6 + 1);
+    }
+
+    public int randomOnBoard(){
+        //random between 1 and 63
+        return (int) (Math.random()* 63 + 1);
     }
 
 }
