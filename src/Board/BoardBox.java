@@ -10,6 +10,6 @@ public class BoardBox {
     }
 
     public String toString(){
-        return "Box number: " + position + ", it have: " + name;
+        return "Box number: " + (position) + ", it have: " + name;
     }
 }

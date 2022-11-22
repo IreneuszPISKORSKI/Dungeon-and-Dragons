@@ -67,4 +67,13 @@ public class Board {
             System.out.println("position: " + entry.getKey() + " value: " + entry.getValue());
         }
     }
+
+    public boolean letsTry(int position){
+        return boardList.get(position).name.equals("0");
+    }
+
+    public String interactionBoardPlayer(int position){
+        System.out.println(position);
+        return boardList.get(position-1).name;
+    }
 }
