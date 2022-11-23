@@ -7,20 +7,20 @@ import java.util.Map;
 
 public class Board {
     List<BoardBox> boardList = new ArrayList<>();
-    public void add(int position, String name){
-        BoardBox box = createBox(position, name);
+    public void add(int position, Box box1){
+        BoardBox box = createBox(position, box1);
         boardList.add(box);
-//        System.out.println(boardList);
     }
 
-    public void edit(int position, String name){
-        BoardBox box = createBox(position, name);
-        int index = findIndex(position);
-        if (index<0){
+    public void edit(int position, Box box1){
+        BoardBox box = createBox(position, box1);
+//        System.out.println("edit pos: " + position);
+//        System.out.println("edit index: " + findIndex(position));
+        if (findIndex(position)<0){
             System.out.println("Gdzies jest blad z indexem w opcji edit");
             return;
         }
-        boardList.set(index, box);
+        boardList.set(findIndex(position), box);
     }
 
     public void delete(int position){
@@ -38,14 +38,14 @@ public class Board {
         }
     }
 
-    BoardBox createBox(int position, String name){
+    BoardBox createBox(int position, Box name){
         return new BoardBox(position, name);
     }
 
     public int findIndex(int position){
         int expectedIndex = -1;
         for (int i = 0; i < boardList.size(); i++) {
-            if (boardList.get(i).position == position){
+            if (boardList.get(i).getPosition() == position){
                 expectedIndex = i;
                 break;
             }
@@ -56,11 +56,11 @@ public class Board {
     public void elementsOnBoard(){
         Map<String, Integer> elementsOnBoard = new HashMap<>();
         for (BoardBox box: boardList) {
-            if (elementsOnBoard.get(box.name)==null){
-                elementsOnBoard.put(box.name, 1);
+            if (elementsOnBoard.get(box.getName())==null){
+                elementsOnBoard.put(box.getName(), 1);
             }else {
-                int oldCounter = elementsOnBoard.get(box.name);
-                elementsOnBoard.put(box.name, oldCounter + 1);
+                int oldCounter = elementsOnBoard.get(box.getName());
+                elementsOnBoard.put(box.getName(), oldCounter + 1);
             }
         }
         for (Map.Entry<String, Integer> entry : elementsOnBoard.entrySet()) {
@@ -69,11 +69,34 @@ public class Board {
     }
 
     public boolean letsTry(int position){
-        return boardList.get(position).name.equals("0");
+        return boardList.get(position).getName().equals("0");
     }
 
-    public String interactionBoardPlayer(int position){
-        System.out.println(position);
-        return boardList.get(position-1).name;
+    public void nameOnPosition(int position){
+        System.out.println(boardList.get(position).getName());
     }
+
+    public void interactionBoardPlayer(int position){
+        boardList.get(position-1).getHave().interact();
+    }
+
+    //take random digit as dice throw, return 1-6
+    public int diceThrow() {
+        return (int) (Math.random() * 6 + 1);
+    }
+
+    public int randomEnemyOnBoard(){
+        //random between 11 and 62
+        return (int) (Math.random()* 52 + 11);
+    }
+    public int randomBonusOnBoard(){
+        //random between 1 and 63
+        return (int) (Math.random()* 63 + 1);
+    }
+    public int randomWeaponOnBoard(){
+        //random between 1 and 40
+        return (int) (Math.random()* 40 + 1);
+    }
+
+
 }

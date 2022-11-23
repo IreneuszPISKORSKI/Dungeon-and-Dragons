@@ -1,4 +1,8 @@
 import Board.Board;
+import Board.EmptySpace;
+import Board.EnemyDragon;
+import Board.EnemyMage;
+import Board.EnemyGoblin;
 import Personnage.Personnage;
 import Personnage.Warrior;
 import Personnage.Wizard;
@@ -66,59 +70,76 @@ public class Game {
         int continueGame;
         int restart;
 
-        //boxes
+        //boxes Start
         Board board = new Board();
         int counter = 1;
 
 //      Add box to all places on the board
         do {
-            board.add(counter, "0");
+            EmptySpace emptySpace = new EmptySpace(counter);
+            board.add(counter, emptySpace);
             counter++;
         }while (counter<boardSize+1);
 
 
 //      Add bonus box x5
-        int numberOfBonus = 5;
+        int numberOfBonus = 13;
+        System.out.println("Dragon: ");
         counter = 0;
         do {
-            int position = randomOnBoard();
+            int position = board.randomBonusOnBoard();
             if (board.letsTry(position)) {
-                board.edit(position, "Bonus");
+                System.out.println("Position: " + position);
+                board.nameOnPosition(position);
+
+                EnemyDragon enemyDragon = new EnemyDragon(position);
+                board.edit(position, enemyDragon);
+                board.nameOnPosition(position);
                 counter++;
             }
-        }while (counter<numberOfBonus);
+        }while (counter<(numberOfBonus));
 
 
 
 //      Add Enemy box x10
-        int numberOfEnemies = 10;
+        int numberOfEnemies = 15;
         counter = 0;
+        System.out.println("Mage: ");
         do {
-            int position = randomOnBoard();
+            int position = board.randomEnemyOnBoard();
             if (board.letsTry(position)) {
-                board.edit(position, "Enemy");
+                System.out.println("Position: " + position);
+                board.nameOnPosition(position);
+                EnemyMage enemyMage = new EnemyMage();
+                board.edit(position, enemyMage);
                 counter++;
             }
 
-        }while (counter<numberOfEnemies);
+        }while (counter<(numberOfEnemies));
 
 
 //      Add Weapon box x3
-        int numberOfWeapons = 3;
+        int numberOfWeapons = 10;
         counter = 0;
+        System.out.println("Goblin: ");
         do {
-            int position = randomOnBoard();
+            int position = board.randomWeaponOnBoard();
             if (board.letsTry(position)) {
-                board.edit(position, "Weapon");
+                System.out.println("Position: " + position);
+                board.nameOnPosition(position);
+                EnemyGoblin enemyGoblin = new EnemyGoblin();
+                System.out.println(enemyGoblin);
+                board.edit(position, enemyGoblin);
+                board.nameOnPosition(position);
                 counter++;
             }
-        }while (counter<numberOfWeapons);
+        }while (counter<(numberOfWeapons));
 
         board.elementsOnBoard();
         board.readAll();
 
 
-    //boxes
+    //boxes End
 
         do {
             newCharacter.setPlayerPosition(0);
@@ -133,20 +154,20 @@ public class Game {
                     if (continueGame == 0) {
                         break;
                     }
-                    thisThrow = diceThrow();
+                    thisThrow = board.diceThrow();
                     newCharacter.setPlayerPosition(newCharacter.getPlayerPosition() + thisThrow);
 
                     System.out.println("You got: " + thisThrow);
                     System.out.println("You are on case " + newCharacter.getPlayerPosition() + "/" + boardSize);
 
-                    String playerGotBox = board.interactionBoardPlayer(newCharacter.getPlayerPosition());
+                    board.interactionBoardPlayer(newCharacter.getPlayerPosition());
 
-                    switch (playerGotBox) {
-                        case "Bonus" -> System.out.println("Bonus!");
-                        case "Enemy" -> System.out.println("Fight!");
-                        case "Weapon" -> System.out.println("Gear up!");
-                        default -> System.out.println("Nothing to see here...");
-                    }
+//                    switch (playerGotBox) {
+//                        case "Bonus" -> System.out.println("Bonus!");
+//                        case "Enemy" -> System.out.println("Fight!");
+//                        case "Weapon" -> System.out.println("Gear up!");
+//                        default -> System.out.println("Nothing to see here...");
+//                    }
 
                     if (newCharacter.getPlayerPosition() >= boardSize) {
                         throw new PersonnageHorsPlateauException();
@@ -173,16 +194,6 @@ public class Game {
 
     public void setBoardSize(int boardSize) {
         this.boardSize = boardSize;
-    }
-
-    //take random digit as dice throw, return 1-6
-    public int diceThrow() {
-        return (int) (Math.random() * 6 + 1);
-    }
-
-    public int randomOnBoard(){
-        //random between 1 and 63
-        return (int) (Math.random()* 62 + 1);
     }
 
 }

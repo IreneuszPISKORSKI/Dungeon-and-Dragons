@@ -1,18 +1,15 @@
 package Board;
 
-public class BoardBox {
+abstract class Enemy implements Box{
     private int position;
     private String name;
-    private Box have;
 
-    BoardBox(int position, Box have){
-        this.have = have;
-        this.name = have.getName();
-        this.position = position;
+    Enemy(int position){
+        setPosition(position);
     }
 
     public int getPosition() {
-        return position;
+        return this.position;
     }
 
     public void setPosition(int position) {
@@ -20,19 +17,11 @@ public class BoardBox {
     }
 
     public String getName() {
-        return name;
+        return this.name;
     }
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public Box getHave() {
-        return have;
-    }
-
-    public void setHave(Box have) {
-        this.have = have;
     }
 
     public String toString(){
