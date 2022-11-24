@@ -228,16 +228,20 @@ public class Game {
 
                     System.out.println("You got: " + thisThrow);
                     System.out.println("You are on case " + newCharacter.getPlayerPosition() + "/" + (boardSize-1));
-                    if (newCharacter.getPlayerPosition() > boardSize) {
+                    if (newCharacter.getPlayerPosition() > (boardSize-1)) {
                         throw new PersonnageHorsPlateauException();
                     }
+
                     board.interactionBoardPlayer(newCharacter);
 
+                    if (newCharacter.getHealthPoints()<1) {
+                        throw new PersonnageDead();
+                    }
                 }
                 System.out.println("You left the game \nGame over!");
 
-            } catch (PersonnageHorsPlateauException e) {
-                System.out.println("Message " + e);
+            } catch (PersonnageHorsPlateauException | PersonnageDead e) {
+                System.out.println("Message: " + e);
             }
 
 //            ask for restart or quit game
