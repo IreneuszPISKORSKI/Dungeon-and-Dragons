@@ -1,6 +1,9 @@
 package Board;
 
+import Personnage.Personnage;
+
 public interface Box {
-    public void interact();
-    public String getName();
+    void interact(Personnage player);
+    String getName();
+    int getPosition();
 }

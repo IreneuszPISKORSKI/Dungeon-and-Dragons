@@ -1,14 +1,16 @@
 package Board;
 
+import Personnage.Personnage;
+
 public class EmptySpace extends Enemy{
 
     public EmptySpace(int position) {
         super(position);
-        setName("0");
+        this.setName("0");
     }
 
     @Override
-    public void interact() {
+    public void interact(Personnage player) {
         System.out.println("Peace and quiet...");
     }
 }

@@ -5,9 +5,6 @@ import EquipmentOffensif.Spell;
 
 public class Wizard extends Personnage{
     public Wizard(String name){
-        /**
-         * Create wizard
-         */
         setType(2);
         setNameOfCharacter(name);
         setHealthPoints(6);

@@ -1,26 +1,24 @@
 package Board;
 
+import Personnage.Personnage;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class Board {
-    List<BoardBox> boardList = new ArrayList<>();
-    public void add(int position, Box box1){
-        BoardBox box = createBox(position, box1);
-        boardList.add(box);
+    List<Box> boardList = new ArrayList<>();
+    public void add(EmptySpace box1){
+        boardList.add(box1);
     }
 
     public void edit(int position, Box box1){
-        BoardBox box = createBox(position, box1);
-//        System.out.println("edit pos: " + position);
-//        System.out.println("edit index: " + findIndex(position));
         if (findIndex(position)<0){
             System.out.println("Gdzies jest blad z indexem w opcji edit");
             return;
         }
-        boardList.set(findIndex(position), box);
+        boardList.set(findIndex(position), box1);
     }
 
     public void delete(int position){
@@ -33,14 +31,11 @@ public class Board {
     }
 
     public void readAll(){
-        for (BoardBox box : boardList) {
+        for (Box box : boardList) {
             System.out.println(box);
         }
     }
 
-    BoardBox createBox(int position, Box name){
-        return new BoardBox(position, name);
-    }
 
     public int findIndex(int position){
         int expectedIndex = -1;
@@ -55,7 +50,7 @@ public class Board {
 
     public void elementsOnBoard(){
         Map<String, Integer> elementsOnBoard = new HashMap<>();
-        for (BoardBox box: boardList) {
+        for (Box box: boardList) {
             if (elementsOnBoard.get(box.getName())==null){
                 elementsOnBoard.put(box.getName(), 1);
             }else {
@@ -73,11 +68,11 @@ public class Board {
     }
 
     public void nameOnPosition(int position){
-        System.out.println(boardList.get(position).getName());
+        System.out.println(boardList.get(position));
     }
 
-    public void interactionBoardPlayer(int position){
-        boardList.get(position-1).getHave().interact();
+    public void interactionBoardPlayer(Personnage player){
+        boardList.get(player.getPlayerPosition()).interact(player);
     }
 
     //take random digit as dice throw, return 1-6
@@ -85,18 +80,16 @@ public class Board {
         return (int) (Math.random() * 6 + 1);
     }
 
-    public int randomEnemyOnBoard(){
+    public int randomMagePos(){
         //random between 11 and 62
         return (int) (Math.random()* 52 + 11);
     }
-    public int randomBonusOnBoard(){
+    public int randomDragonPos(){
         //random between 1 and 63
         return (int) (Math.random()* 63 + 1);
     }
-    public int randomWeaponOnBoard(){
+    public int randomGoblinPos(){
         //random between 1 and 40
         return (int) (Math.random()* 40 + 1);
     }
-
-
 }
