@@ -86,7 +86,7 @@ public class Board {
     }
     public int randomDragonPos(int size){
         //random between 1 and 63
-        return (int) (Math.random()* size + 1);
+        return (int) (Math.random()* (size-1) + 1);
     }
     public int randomGoblinPos(){
         //random between 1 and 40
