@@ -13,8 +13,6 @@ public class EnemyMage extends Enemy {
 
     @Override
     public void interact(Personnage player) {
-        System.out.println("You met a Mage!\nHe has " + getEnemyAttack() + " attack power and " + getEnemyHealth() + " health points.");
         super.interact(player);
-        System.out.println("After fight:\nMage have: " + getEnemyHealth() + " health points. You have: " + (player.getHealthPoints() + player.getDefense().getDefence()) + " health points.");
     }
 }
