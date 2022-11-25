@@ -1,6 +1,6 @@
 package Personnage;
 
-import EquipmentDefensif.Potion;
+import EquipmentDefensif.MageRobe;
 import EquipmentOffensif.Spell;
 
 public class Wizard extends Personnage{
@@ -11,6 +11,6 @@ public class Wizard extends Personnage{
         setAttackPower(15);
         setTypeOfCharacter("You are a wizard Harry");
         setWeapon(new Spell());
-        setDefense(new Potion());
+        setDefense(new MageRobe());
     }
 }

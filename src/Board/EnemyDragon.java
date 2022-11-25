@@ -14,10 +14,7 @@ public class EnemyDragon extends Enemy{
     @Override
     public void interact(Personnage player) {
         System.out.println("You met a Dragon!\nHe has " + getEnemyAttack() + " attack power and " + getEnemyHealth() + " health points.");
-        while (getEnemyHealth()>0&&player.getHealthPoints()>0){
-            setEnemyHealth(getEnemyHealth()-player.getAttackPower());
-            player.setHealthPoints(player.getHealthPoints()-getEnemyAttack());
-        }
-        System.out.println("After fight:\nDragon have: " + getEnemyHealth() + "health points. You have: " + player.getHealthPoints() + " health points.");
+        super.interact(player);
+        System.out.println("After fight:\nDragon have: " + getEnemyHealth() + " health points. You have: " + (player.getHealthPoints() + player.getDefense().getDefence()) + " health points.");
     }
 }

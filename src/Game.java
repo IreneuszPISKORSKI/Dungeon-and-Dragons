@@ -18,11 +18,12 @@ import java.util.Scanner;
 //Where the magic begins
 public class Game {
     private Menu menu = new Menu();
-    private int boardSize = 64;
+    private int boardSize;
     private Personnage newCharacter;
 
     //Start game and display main menu
-    public void startGame() {
+    public void startGame(int size) {
+        setBoardSize(size);
         Scanner scanner = new Scanner(System.in);
 
         int choice;
@@ -78,7 +79,7 @@ public class Game {
         Board board = new Board();
         int counter = 0;
 
-//      Add box to all places on the board
+        //      Add box to all places on the board
         do {
             EmptySpace emptySpace = new EmptySpace(counter);
             board.add(emptySpace);
@@ -86,11 +87,11 @@ public class Game {
         }while (counter<boardSize);
 
 
-//      Add dragon box x4
+        //      Add dragon box x4
         int numberOfDragons = 4;
         counter = 0;
         do {
-            int position = board.randomDragonPos();
+            int position = board.randomDragonPos(boardSize);
             if (board.letsTry(position)) {
                 EnemyDragon enemyDragon = new EnemyDragon(position);
                 board.edit(position, enemyDragon);
@@ -100,11 +101,11 @@ public class Game {
 
 
 
-//      Add Mages box x10
+        //      Add Mages box x10
         int numberOfMages = 10;
         counter = 0;
         do {
-            int position = board.randomDragonPos();
+            int position = board.randomDragonPos(boardSize);
             if (board.letsTry(position)) {
                 EnemyMage enemyMage = new EnemyMage(position);
                 board.edit(position, enemyMage);
@@ -114,11 +115,11 @@ public class Game {
         }while (counter<(numberOfMages));
 
 
-//      Add Goblins box x10
+        //      Add Goblins box x10
         int numberOfGoblins = 10;
         counter = 0;
         do {
-            int position = board.randomDragonPos();
+            int position = board.randomDragonPos(boardSize);
             if (board.letsTry(position)) {
                 EnemyGoblin enemyGoblin = new EnemyGoblin(position);
                 board.edit(position, enemyGoblin);
@@ -126,11 +127,12 @@ public class Game {
             }
         }while (counter<(numberOfGoblins));
 
+
         //      Add Mace box x5
         int numberOfMace = 5;
         counter = 0;
         do {
-            int position = board.randomDragonPos();
+            int position = board.randomDragonPos(boardSize);
             if (board.letsTry(position)) {
                 Mace mace = new Mace(position);
                 board.edit(position, mace);
@@ -138,11 +140,12 @@ public class Game {
             }
         }while (counter<(numberOfMace));
 
+
 //      Add Sword x4
         int numberOfSword = 4;
         counter = 0;
         do {
-            int position = board.randomDragonPos();
+            int position = board.randomDragonPos(boardSize);
             if (board.letsTry(position)) {
                 Sword sword = new Sword(position);
                 board.edit(position, sword);
@@ -155,7 +158,7 @@ public class Game {
         int numberOfBigPotions = 2;
         counter = 0;
         do {
-            int position = board.randomDragonPos();
+            int position = board.randomDragonPos(boardSize);
             if (board.letsTry(position)) {
                 BigPotion potion = new BigPotion(position);
                 board.edit(position, potion);
@@ -164,11 +167,11 @@ public class Game {
         }while (counter<(numberOfBigPotions));
 
 
-        //      Add Potion x6
+        //      Add MageRobe x6
         int numberOfPotions = 6;
         counter = 0;
         do {
-            int position = board.randomDragonPos();
+            int position = board.randomDragonPos(boardSize);
             if (board.letsTry(position)) {
                 Potion potion = new Potion(position);
                 board.edit(position, potion);
@@ -181,7 +184,7 @@ public class Game {
         int numberOfFireballs = 2;
         counter = 0;
         do {
-            int position = board.randomDragonPos();
+            int position = board.randomDragonPos(boardSize);
             if (board.letsTry(position)) {
                 FireBall fireBall = new FireBall(position);
                 board.edit(position, fireBall);
@@ -194,7 +197,7 @@ public class Game {
         int numberOfLightnings = 5;
         counter = 0;
         do {
-            int position = board.randomDragonPos();
+            int position = board.randomDragonPos(boardSize);
             if (board.letsTry(position)) {
                 Lightning lightning = new Lightning(position);
                 board.edit(position, lightning);
@@ -227,21 +230,25 @@ public class Game {
                     newCharacter.setPlayerPosition(newCharacter.getPlayerPosition() + thisThrow);
 
                     System.out.println("You got: " + thisThrow);
-                    System.out.println("You are on case " + newCharacter.getPlayerPosition() + "/" + (boardSize-1));
-                    if (newCharacter.getPlayerPosition() > (boardSize-1)) {
+                    System.out.println("You are on case " + newCharacter.getPlayerPosition() +
+                            "/" + (boardSize-1) + "\nYour character has " +
+                            (newCharacter.getAttackPower()+ newCharacter.getWeapon().getAttack()) + " attack points and " +
+                            (newCharacter.getHealthPoints() + newCharacter.getDefense().getDefence()) + " health points");
+
+                    if (newCharacter.getPlayerPosition() >= (boardSize-1)) {
                         throw new PersonnageHorsPlateauException();
                     }
 
                     board.interactionBoardPlayer(newCharacter);
 
-                    if (newCharacter.getHealthPoints()<1) {
+                    if ((newCharacter.getHealthPoints() +newCharacter.getDefense().getDefence())<1) {
                         throw new PersonnageDead();
                     }
                 }
                 System.out.println("You left the game \nGame over!");
 
             } catch (PersonnageHorsPlateauException | PersonnageDead e) {
-                System.out.println("Message: " + e);
+                System.out.println(e);
             }
 
 //            ask for restart or quit game
@@ -249,6 +256,15 @@ public class Game {
                 System.out.println("Do you want to play again?");
                 System.out.println("1 - yes | 0 - no");
                 restart = gameRestart.nextInt();
+                if (newCharacter.getType()==1){
+                    newCharacter.setHealthPoints(10);
+                    newCharacter.getWeapon().setName("You have been robbed in the meantime so again short sword");
+                    newCharacter.getWeapon().setAttack(2);
+                } else if (newCharacter.getType()==2) {
+                    newCharacter.setHealthPoints(6);
+                    newCharacter.getWeapon().setName("You got amnesia and again it's flame touch");
+                    newCharacter.getWeapon().setAttack(2);
+                }
             }
         } while (restart == 1);
     }

@@ -1,5 +1,7 @@
 package Board;
 
+import Personnage.Personnage;
+
 abstract class Enemy implements Box{
     private int position;
     private String name;
@@ -8,6 +10,14 @@ abstract class Enemy implements Box{
 
     Enemy(int position){
         setPosition(position);
+    }
+
+    @Override
+    public void interact(Personnage player) {
+        while (getEnemyHealth()>0 && (player.getHealthPoints() + player.getDefense().getDefence())>0){
+            setEnemyHealth(getEnemyHealth()-(player.getAttackPower()+player.getWeapon().getAttack()));
+            player.setHealthPoints(player.getHealthPoints()-getEnemyAttack());
+        }
     }
 
     public int getPosition() {

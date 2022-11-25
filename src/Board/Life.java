@@ -7,9 +7,9 @@ public class Life extends Bonus{
     @Override
     public void interact(Personnage player) {
         int oldHP = player.getHealthPoints();
-        System.out.println("You have found: " + getName() + " You had: " + player.getHealthPoints() + " health points");
+        System.out.println("You have found: " + getName() + "\nYou had: " + (player.getHealthPoints()+player.getDefense().getDefence()) + " health points");
         player.setHealthPoints(oldHP + getHealthUp());
-        System.out.println("Now you have: " + player.getHealthPoints() + " health points");
+        System.out.println("Now you have: " + (player.getHealthPoints()+player.getDefense().getDefence()) + " health points");
     }
 
 

@@ -8,14 +8,22 @@ public class Weapon extends Bonus{
     private int typeOfItem;
     @Override
     public void interact(Personnage player) {
-        int oldAttack = player.getAttackPower();
         setTypeOfPlayer(player.getType());
-        System.out.println("You found a " + getName() + ". You had " + player.getAttackPower() + " attack power");
-        if (player.getType() == getTypeOfItem()){
-            player.setAttackPower(oldAttack + getDmgUp());
-            System.out.println("Now you have " + player.getAttackPower() + "attack power");
+        System.out.println("You found a " + getName() + ". You had " +
+                (player.getAttackPower()+player.getWeapon().getAttack()) + " attack power");
+
+        if (player.getType() == getTypeOfItem() && player.getWeapon().getAttack()<dmgUp){
+            player.getWeapon().setAttack(getDmgUp());
+            player.getWeapon().setName(getName());
+            System.out.println("It's a better weapon than your current one, you decide to keep it.\nNow you have " +
+                    (player.getAttackPower()+player.getWeapon().getAttack()) + " attack power");
+        }else if (player.getType() == getTypeOfItem() && player.getWeapon().getAttack()>=dmgUp){
+            System.out.println("It's the same or weaker weapon than the one you're currently using, " +
+                    "there's no point in taking it (and it's dirty!).\nYou have still " +
+                    (player.getAttackPower()+player.getWeapon().getAttack()) + " attack power");
         }else {
-            System.out.println("Sorry, not for you, no bonus. You have still " + player.getAttackPower() + " attack power");
+            System.out.println("Sorry, not for you, no bonus. You have still " +
+                    (player.getAttackPower()+player.getWeapon().getAttack()) + " attack power");
         }
     }
 
