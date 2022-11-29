@@ -13,8 +13,9 @@ public class EmptySpace implements Box{
     }
 
     @Override
-    public void interact(Personnage player) {
+    public int interact(Personnage player, int again) {
         System.out.println("Peace and quiet...");
+        return 0;
     }
 
     @Override

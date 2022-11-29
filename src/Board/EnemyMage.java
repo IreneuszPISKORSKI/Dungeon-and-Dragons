@@ -12,7 +12,7 @@ public class EnemyMage extends Enemy {
     }
 
     @Override
-    public void interact(Personnage player) {
-        super.interact(player);
+    public int interact(Personnage player, int again) {
+        return super.interact(player, again);
     }
 }

@@ -4,6 +4,7 @@ import EquipmentDefensif.EquipementDefensif;
 import EquipmentOffensif.EquipementOffensif;
 
 public abstract class Personnage {
+    protected int id;
     protected EquipementDefensif defense;
     protected EquipementOffensif weapon;
     protected String nameOfCharacter;
@@ -40,6 +41,14 @@ public abstract class Personnage {
     }
 
     //getter & setter:
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getNameOfCharacter() {
         return nameOfCharacter;

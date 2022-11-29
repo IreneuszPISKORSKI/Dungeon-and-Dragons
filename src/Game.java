@@ -1,3 +1,7 @@
+//import BDDconnectionAndManagement.AddHero;
+
+import BDDconnectionAndManagement.BDDConnect;
+//import BDDconnectionAndManagement.SelectAll;
 import Board.Board;
 import Board.EmptySpace;
 import Board.EnemyDragon;
@@ -13,6 +17,9 @@ import Personnage.Personnage;
 import Personnage.Warrior;
 import Personnage.Wizard;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.Collections;
 import java.util.Scanner;
 
 //Where the magic begins
@@ -28,22 +35,59 @@ public class Game {
 
         int choice;
         do {
+            BDDConnect.selectAll();
             menu.printMenu();
             choice = scanner.nextInt();
             switch (choice) {
                 case 1 -> createCharacter();
-                case 2 -> menu.printCharacter(newCharacter);
-                case 3 -> {
-                    menu.printCharacter(newCharacter);
-                    createCharacter();
-                }
-                case 4 -> playGame();
-                case 5 -> menu.exitGame();
+                case 2 -> selectCharacter();
+                case 3 -> editCharacter(newCharacter.getId());
+                case 4 -> BDDConnect.deleteHero(newCharacter.getNameOfCharacter());
+                case 5 -> playGame();
+                case 6 -> menu.exitGame();
                 default -> System.out.println("Incorrect choice.");
             }
             System.out.println(" ");
         } while (choice != 5);
     }
+
+    private void selectCharacter() {
+        Scanner inputInfo = new Scanner(System.in);
+        System.out.println("Which one do you want to choose (enter id)");
+        int id = inputInfo.nextInt();
+        System.out.println(id);
+
+        try {
+            ResultSet selected = BDDConnect.selectOne(id);
+            while (selected.next()) {
+                if (selected.getInt("type") == 1) {
+
+                    newCharacter = new Warrior(id,
+                            selected.getString("name"),
+                            selected.getInt("health_points"),
+                            selected.getInt("attack_power"),
+                            selected.getString("weapon"),
+                            selected.getInt("wAttack"),
+                            selected.getString("wType"),
+                            selected.getString("armor"));
+
+                } else if (selected.getInt("type") == 2) {
+
+                    newCharacter = new Wizard(id,
+                            selected.getString("name"),
+                            selected.getInt("health_points"),
+                            selected.getInt("attack_power"),
+                            selected.getString("weapon"),
+                            selected.getInt("wAttack"),
+                            selected.getString("wType"),
+                            selected.getString("armor"));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     //create new character
     private void createCharacter() {
@@ -64,6 +108,31 @@ public class Game {
         } else if (type == 2) {
             newCharacter = new Wizard(name);
         }
+        BDDConnect.addHero(type, name, newCharacter.getHealthPoints(), newCharacter.getAttackPower(), newCharacter.getWeapon().getName(), newCharacter.getWeapon().getAttack(), newCharacter.getWeapon().getType(), newCharacter.getDefense().getName());
+        System.out.println(newCharacter);
+    }
+
+    private void editCharacter(int oldID) {
+        BDDConnect.selectOne(oldID);
+        menu.printCharacter(newCharacter);
+        Scanner inputInfo = new Scanner(System.in);
+        System.out.println("Rename your character");
+        String name = inputInfo.nextLine();
+
+        System.out.println("Choose type of your character");
+        System.out.println("1 - warrior");
+        System.out.println("2 - wizard");
+        int type = inputInfo.nextInt();
+
+        //make warrior or wizard
+        if (type == 1) {
+            newCharacter = new Warrior(name);
+
+        } else if (type == 2) {
+            newCharacter = new Wizard(name);
+        }
+
+        BDDConnect.editHero(type, name, newCharacter.getHealthPoints(), newCharacter.getAttackPower(), newCharacter.getWeapon().getName(), newCharacter.getWeapon().getAttack(), newCharacter.getWeapon().getType(), newCharacter.getDefense().getName(), oldID);
         System.out.println(newCharacter);
     }
 
@@ -84,7 +153,7 @@ public class Game {
             EmptySpace emptySpace = new EmptySpace(counter);
             board.add(emptySpace);
             counter++;
-        }while (counter<boardSize);
+        } while (counter < boardSize);
 
 
         //      Add dragon box x4
@@ -97,8 +166,7 @@ public class Game {
                 board.edit(position, enemyDragon);
                 counter++;
             }
-        }while (counter<(numberOfDragons));
-
+        } while (counter < (numberOfDragons));
 
 
         //      Add Mages box x10
@@ -112,7 +180,7 @@ public class Game {
                 counter++;
             }
 
-        }while (counter<(numberOfMages));
+        } while (counter < (numberOfMages));
 
 
         //      Add Goblins box x10
@@ -125,7 +193,7 @@ public class Game {
                 board.edit(position, enemyGoblin);
                 counter++;
             }
-        }while (counter<(numberOfGoblins));
+        } while (counter < (numberOfGoblins));
 
 
         //      Add Mace box x5
@@ -138,7 +206,7 @@ public class Game {
                 board.edit(position, mace);
                 counter++;
             }
-        }while (counter<(numberOfMace));
+        } while (counter < (numberOfMace));
 
 
 //      Add Sword x4
@@ -151,7 +219,7 @@ public class Game {
                 board.edit(position, sword);
                 counter++;
             }
-        }while (counter<(numberOfSword));
+        } while (counter < (numberOfSword));
 
 
         //      Add Big potion x2
@@ -164,7 +232,7 @@ public class Game {
                 board.edit(position, potion);
                 counter++;
             }
-        }while (counter<(numberOfBigPotions));
+        } while (counter < (numberOfBigPotions));
 
 
         //      Add MageRobe x6
@@ -177,7 +245,7 @@ public class Game {
                 board.edit(position, potion);
                 counter++;
             }
-        }while (counter<(numberOfPotions));
+        } while (counter < (numberOfPotions));
 
 
         //      Add Fireballs x2
@@ -190,7 +258,7 @@ public class Game {
                 board.edit(position, fireBall);
                 counter++;
             }
-        }while (counter<(numberOfFireballs));
+        } while (counter < (numberOfFireballs));
 
 
         //      Add Lightning x5
@@ -203,16 +271,13 @@ public class Game {
                 board.edit(position, lightning);
                 counter++;
             }
-        }while (counter<(numberOfLightnings));
-
-
+        } while (counter < (numberOfLightnings));
 
 
         board.elementsOnBoard();
         board.readAll();
 
-
-    //boxes End
+        //boxes End
 
         do {
             newCharacter.setPlayerPosition(0);
@@ -231,17 +296,17 @@ public class Game {
 
                     System.out.println("You got: " + thisThrow);
                     System.out.println("You are on case " + newCharacter.getPlayerPosition() +
-                            "/" + (boardSize-1) + "\nYour character has " +
-                            (newCharacter.getAttackPower()+ newCharacter.getWeapon().getAttack()) + " attack points and " +
+                            "/" + (boardSize - 1) + "\nYour character has " +
+                            (newCharacter.getAttackPower() + newCharacter.getWeapon().getAttack()) + " attack points and " +
                             (newCharacter.getHealthPoints() + newCharacter.getDefense().getDefence()) + " health points");
 
-                    if (newCharacter.getPlayerPosition() >= (boardSize-1)) {
+                    if (newCharacter.getPlayerPosition() >= (boardSize - 1)) {
                         throw new PersonnageHorsPlateauException();
                     }
 
                     board.interactionBoardPlayer(newCharacter);
 
-                    if ((newCharacter.getHealthPoints() +newCharacter.getDefense().getDefence())<1) {
+                    if ((newCharacter.getHealthPoints() + newCharacter.getDefense().getDefence()) < 1) {
                         throw new PersonnageDead();
                     }
                 }
@@ -256,11 +321,11 @@ public class Game {
                 System.out.println("Do you want to play again?");
                 System.out.println("1 - yes | 0 - no");
                 restart = gameRestart.nextInt();
-                if (newCharacter.getType()==1){
+                if (newCharacter.getType() == 1) {
                     newCharacter.setHealthPoints(10);
                     newCharacter.getWeapon().setName("You have been robbed in the meantime so again short sword");
                     newCharacter.getWeapon().setAttack(2);
-                } else if (newCharacter.getType()==2) {
+                } else if (newCharacter.getType() == 2) {
                     newCharacter.setHealthPoints(6);
                     newCharacter.getWeapon().setName("You got amnesia and again it's flame touch");
                     newCharacter.getWeapon().setAttack(2);

@@ -15,7 +15,7 @@ abstract class Enemy implements Box{
     }
 
     @Override
-    public void interact(Personnage player) {
+    public int interact(Personnage player, int again) {
         Scanner scanner = new Scanner(System.in);
         int choice;
         if (getEnemyHealth()<=0){
@@ -28,20 +28,23 @@ abstract class Enemy implements Box{
                 if (choice==1) {
                     setEnemyHealth(getEnemyHealth() - (player.getAttackPower() + player.getWeapon().getAttack()));
                     player.setHealthPoints(player.getHealthPoints() - getEnemyAttack());
+                    again=0;
                 } else if (choice==0) {
                     int random = (int) (Math.random() * 6 + 1);
                     int goBack = player.getPlayerPosition() - random ;
                     if (goBack<0){goBack=0;}
                     player.setPlayerPosition(goBack);
                     System.out.println("You ran away and moved back " + random + " squares, you are now on square " + player.getPlayerPosition());
+                    again=1;
                     break;
                 }else {
                     System.out.println("Wrong value, try again");
                 }
                 System.out.println("After fight:\n" + name + " have: " + getEnemyHealth() + " health points. You have: " + (player.getHealthPoints() + player.getDefense().getDefence()) + " health points.");
             }
-        }
 
+        }
+        return again;
     }
 
     public int getPosition() {

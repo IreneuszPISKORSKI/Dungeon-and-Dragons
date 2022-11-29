@@ -7,7 +7,7 @@ public class Weapon extends Bonus{
     private int typeOfPlayer;
     private int typeOfItem;
     @Override
-    public void interact(Personnage player) {
+    public int interact(Personnage player, int again) {
         setTypeOfPlayer(player.getType());
         System.out.println("You found a " + getName() + ". You had " +
                 (player.getAttackPower()+player.getWeapon().getAttack()) + " attack power");
@@ -25,6 +25,7 @@ public class Weapon extends Bonus{
             System.out.println("Sorry, not for you, no bonus. You have still " +
                     (player.getAttackPower()+player.getWeapon().getAttack()) + " attack power");
         }
+    return 0;
     }
 
     @Override

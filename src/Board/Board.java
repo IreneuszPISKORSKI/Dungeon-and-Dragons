@@ -72,7 +72,10 @@ public class Board {
     }
 
     public void interactionBoardPlayer(Personnage player){
-        boardList.get(player.getPlayerPosition()).interact(player);
+        int again = 1;
+        while (again==1) {
+            again = boardList.get(player.getPlayerPosition()).interact(player, again);
+        }
     }
 
     //take random digit as dice throw, return 1-6

@@ -1,29 +1,20 @@
 import Personnage.Personnage;
 
 public class Menu {
-    /**
-     * method to display menu
-     */
     public void printMenu(){
         System.out.println("Choose one option:");
         System.out.println("1 - Create new character");
-        System.out.println("2 - Character description");
-        System.out.println("3 - Edit your character");
-        System.out.println("4 - Start game!");
-        System.out.println("5 - Exit");
+        System.out.println("2 - Choose your Character");
+        System.out.println("3 - Edit this character");
+        System.out.println("4 - Delete this character");
+        System.out.println("5 - Start game!");
+        System.out.println("6 - Exit");
     }
 
-    /**
-     * method to display character
-     * @param newCharacter
-     */
     public void printCharacter(Personnage newCharacter){
         System.out.println(newCharacter);
     }
 
-    /**
-     * method to display things at exit
-     */
     public void exitGame(){
         System.out.println("ExitGame");
     }

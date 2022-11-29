@@ -3,7 +3,7 @@ package Board;
 import Personnage.Personnage;
 
 public interface Box {
-    void interact(Personnage player);
+    int interact(Personnage player, int again);
     String getName();
     int getPosition();
 }
