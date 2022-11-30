@@ -79,14 +79,14 @@ public class BDDConnect {
         try {
             Statement stmt = connect.createStatement();
             System.out.println("Updating records in the table...");
-            String sql = "UPDATE hero SET type = " + type +
-                    ", '" + name +
-                    "', " + hp +
-                    ", " + att_p +
-                    ", '" + weapon +
-                    "', " + wAttack +
-                    ", '" + wType +
-                    "', '" + armor + "' WHERE id = " + id ;
+            String sql = "UPDATE hero SET type = '" + type +
+                    "', name = '" + name +
+                    "', health_points = '" + hp +
+                    "', attack_power = '" + att_p +
+                    "', weapon = '" + weapon +
+                    "', wAttack = '" + wAttack +
+                    "', wType = '" + wType +
+                    "', armor = '" + armor + "' WHERE id = " + id ;
             stmt.executeUpdate(sql);
             System.out.println("Updated records in the table...");
         } catch (SQLException e) {

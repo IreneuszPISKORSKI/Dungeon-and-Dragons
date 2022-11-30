@@ -131,16 +131,40 @@ public class Game {
         System.out.println("1 - warrior");
         System.out.println("2 - wizard");
         int type = inputInfo.nextInt();
-
-        //make warrior or wizard
         if (type == 1) {
             newCharacter = new Warrior(name);
+            newCharacter.getDefense().setName("Wood shield");
 
         } else if (type == 2) {
             newCharacter = new Wizard(name);
+            newCharacter.getDefense().setName("Wizard robe");
         }
 
-        BDDConnect.editHero(type, name, newCharacter.getHealthPoints(), newCharacter.getAttackPower(), newCharacter.getWeapon().getName(), newCharacter.getWeapon().getAttack(), newCharacter.getWeapon().getType(), newCharacter.getDefense().getName(), oldID);
+        System.out.println("Set attack of your character");
+        int attack = inputInfo.nextInt();
+
+        System.out.println("Set name of your characters weapon");
+        String weaponName = inputInfo.next();
+
+        System.out.println("Set power of your characters weapon");
+        int wAttack = inputInfo.nextInt();
+
+        System.out.println("Set type of your characters weapon");
+        String wType = inputInfo.next();
+
+        newCharacter.setAttackPower(attack);
+        newCharacter.getWeapon().setName(weaponName);
+        newCharacter.getWeapon().setAttack(wAttack);
+        newCharacter.getWeapon().setType(wType);
+
+        BDDConnect.editHero(type, name,
+                newCharacter.getHealthPoints(),
+                newCharacter.getAttackPower(),
+                newCharacter.getWeapon().getName(),
+                newCharacter.getWeapon().getAttack(),
+                newCharacter.getWeapon().getType(),
+                newCharacter.getDefense().getName(),
+                oldID);
         System.out.println(newCharacter);
     }
 
