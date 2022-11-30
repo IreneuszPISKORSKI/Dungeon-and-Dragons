@@ -83,6 +83,14 @@ public class Game {
                             selected.getString("armor"));
                 }
             }
+            System.out.println("You have chosen a character:" +
+                    " Id: " + newCharacter.getId() +
+                    ", Name: " + newCharacter.getNameOfCharacter() +
+                    ", Type: " + newCharacter.getType() +
+                    ", HP: " + newCharacter.getHealthPoints() +
+                    ", AP: " + newCharacter.getAttackPower() +
+                    ", Weapon: " + newCharacter.getWeapon() +
+                    ", Armor: " + newCharacter.getDefense());
         } catch (SQLException e) {
             e.printStackTrace();
         }

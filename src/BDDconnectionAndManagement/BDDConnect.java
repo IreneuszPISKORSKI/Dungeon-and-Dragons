@@ -49,16 +49,6 @@ public class BDDConnect {
         try {
             Statement stmt = connect.createStatement();
             rs = stmt.executeQuery("SELECT * FROM hero WHERE id = " + id );
-            while (rs.next()) {
-                System.out.println("You have chosen a character:" +
-                        " Id: " + rs.getInt("id") +
-                        ", Name: " + rs.getString("name") +
-                        ", Type: " + rs.getInt("type") +
-                        ", HP: " + rs.getInt("health_points") +
-                        ", AP: " + rs.getInt("attack_power") +
-                        ", Weapon: " + rs.getString("weapon") +
-                        ", Armor: " + rs.getString("armor"));
-            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
