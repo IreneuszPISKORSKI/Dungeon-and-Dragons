@@ -42,7 +42,7 @@ public class Game {
                 case 1 -> createCharacter();
                 case 2 -> selectCharacter();
                 case 3 -> editCharacter(newCharacter.getId());
-                case 4 -> BDDConnect.deleteHero(newCharacter.getNameOfCharacter());
+                case 4 -> BDDConnect.deleteHero(newCharacter.getId());
                 case 5 -> playGame();
                 case 6 -> menu.exitGame();
                 default -> System.out.println("Incorrect choice.");
@@ -118,6 +118,7 @@ public class Game {
         }
         BDDConnect.addHero(type, name, newCharacter.getHealthPoints(), newCharacter.getAttackPower(), newCharacter.getWeapon().getName(), newCharacter.getWeapon().getAttack(), newCharacter.getWeapon().getType(), newCharacter.getDefense().getName());
         System.out.println(newCharacter);
+        newCharacter.setId(BDDConnect.lastId());
     }
 
     private void editCharacter(int oldID) {
@@ -143,6 +144,9 @@ public class Game {
         System.out.println("Set attack of your character");
         int attack = inputInfo.nextInt();
 
+        System.out.println("Set health of your character");
+        int health = inputInfo.nextInt();
+
         System.out.println("Set name of your characters weapon");
         String weaponName = inputInfo.next();
 
@@ -156,6 +160,7 @@ public class Game {
         newCharacter.getWeapon().setName(weaponName);
         newCharacter.getWeapon().setAttack(wAttack);
         newCharacter.getWeapon().setType(wType);
+        newCharacter.setHealthPoints(health);
 
         BDDConnect.editHero(type, name,
                 newCharacter.getHealthPoints(),
