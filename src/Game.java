@@ -1,7 +1,4 @@
-//import BDDconnectionAndManagement.AddHero;
-
 import BDDconnectionAndManagement.BDDConnect;
-//import BDDconnectionAndManagement.SelectAll;
 import Board.Board;
 import Board.EmptySpace;
 import Board.EnemyDragon;
@@ -16,7 +13,6 @@ import Board.Weapons.Sword;
 import Personnage.Personnage;
 import Personnage.Warrior;
 import Personnage.Wizard;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Scanner;
