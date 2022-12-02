@@ -61,8 +61,7 @@ public class BDDConnect {
             Statement stmt = connect.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT id FROM hero ORDER BY id DESC LIMIT 1");
             while (rs.next()) {
-                // Retrieve by column name
-                id = rs.getInt(id);
+                id = rs.getInt("id");
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -139,6 +138,7 @@ public class BDDConnect {
             Statement stmt = connect.createStatement();
             System.out.println("Updating records in the table...");
             String sql = "DELETE FROM hero WHERE id = '" + id + "'";
+            System.out.println("Deleting thing with id = " + id);
             stmt.executeUpdate(sql);
             System.out.println("Updated records in the table...");
         } catch (SQLException e) {

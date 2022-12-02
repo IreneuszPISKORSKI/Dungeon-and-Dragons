@@ -19,7 +19,6 @@ import Personnage.Wizard;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Collections;
 import java.util.Scanner;
 
 //Where the magic begins
@@ -42,7 +41,10 @@ public class Game {
                 case 1 -> createCharacter();
                 case 2 -> selectCharacter();
                 case 3 -> editCharacter(newCharacter.getId());
-                case 4 -> BDDConnect.deleteHero(newCharacter.getId());
+                case 4 -> {
+                    BDDConnect.deleteHero(newCharacter.getId());
+                    newCharacter = null;
+                }
                 case 5 -> playGame();
                 case 6 -> menu.exitGame();
                 default -> System.out.println("Incorrect choice.");
@@ -55,8 +57,6 @@ public class Game {
         Scanner inputInfo = new Scanner(System.in);
         System.out.println("Which one do you want to choose (enter id)");
         int id = inputInfo.nextInt();
-        System.out.println(id);
-
         try {
             ResultSet selected = BDDConnect.selectOne(id);
             while (selected.next()) {
@@ -122,7 +122,6 @@ public class Game {
     }
 
     private void editCharacter(int oldID) {
-        BDDConnect.selectOne(oldID);
         menu.printCharacter(newCharacter);
         Scanner inputInfo = new Scanner(System.in);
         System.out.println("Rename your character");
@@ -161,6 +160,7 @@ public class Game {
         newCharacter.getWeapon().setAttack(wAttack);
         newCharacter.getWeapon().setType(wType);
         newCharacter.setHealthPoints(health);
+        newCharacter.setId(oldID);
 
         BDDConnect.editHero(type, name,
                 newCharacter.getHealthPoints(),
