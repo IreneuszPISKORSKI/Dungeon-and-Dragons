@@ -4,6 +4,18 @@ import java.sql.*;
 
 public class BDDConnect {
     static final String DB_URL = "jdbc:mysql://localhost:3306/d_and_d";
+    // Database: d_and_d
+    //Table: hero
+    //	id
+    //	type
+    //	name
+    //  health_points
+    // 	attack_power
+    // 	weapon
+    // 	wAttack
+    // 	wType
+    // 	armor
+
     static final String USER = "irek";
     static final String PASS = "";
     private static Connection connect;
